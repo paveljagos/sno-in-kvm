@@ -1,0 +1,11 @@
+openshift-install
+coreos-installer_amd64
+
+install-config.yaml
+pull-secret
+
+.openshift_install.log
+
+*.gz
+*.iso
+*.tar
