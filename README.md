@@ -210,6 +210,44 @@ in/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefile-r
 ```
 
 
+
+
+### firewalld rulles
+
+> in case you have active firewall, you need to allow the traffic
+
+* commands
+
+```sh
+sudo firewall-cmd --zone=trusted --add-interface=virbr1 --permanent
+sudo firewall-cmd --zone=trusted --add-service=https --permanent
+sudo firewall-cmd --zone=trusted --add-port=6443/tcp --permanent
+sudo firewall-cmd --zone=trusted --add-port=22623/tcp --permanent
+sudo firewall-cmd --reload
+```
+
+* trusted.xml
+
+```sh
+sudo cat /etc/firewalld/zones/trusted.xml
+[sudo] password for pjagos: 
+<?xml version="1.0" encoding="utf-8"?>
+<zone target="ACCEPT">
+  <short>Trusted</short>
+  <description>All network connections are accepted.</description>
+  <service name="https"/>
+  <port port="6443" protocol="tcp"/>
+  <port port="22623" protocol="tcp"/>
+  <interface name="virbr1"/>
+  <forward/>
+</zone>
+```
+
+
+
+
+
+
 #### future imporovements
 
 This can be taken as notes and ides for future me.
